@@ -17,3 +17,9 @@ C# is a bit bizarre in comparison to C++, I can't tell if it's the lanugage itse
 Most of the way through the tutorial at this point, a bit suprised by just how broken this card game engine is only 6 minutes from the end, but I do feel more comfortable in Unity. It has a lot of quirks but nothing too ridiculous. I really need to figure out this canvas size issue because it makes this a lot more difficult than it probably needs to be, but the struggle is where the learning happens so maybe it's a good thing!
 
 --
+
+Ok, I've finished and about to record a gif with LICEcap. I fixed all errors with the game that I was experiencing and now it has functionality equivalent to the game in the tutorial. That was an interesting experience and having to debug my own project afterward made me understand the prefab system and how discrete different areas of the UI and instances of objects are in Unity.
+
+The main issues I was experiencing was that my card1s would turn into squares and align together in the drop zone, the solution was realizing I had two instances of the grid layout on and the one with the most pull hierarchally was at default settings. I also could not get my card2s to interact with the drop zone and realized I did not have box colliders or rigidbodys on them so I went ahead and added those and now it functions properly.
+
+I definitely feel confident that I could make a more involved card game now and have been thinking of ways to use the tools I've learned today to create the game I want to work on once we move past the card game section of the course.
