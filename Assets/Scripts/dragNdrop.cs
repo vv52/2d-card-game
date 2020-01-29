@@ -5,6 +5,8 @@ using UnityEngine;
 public class dragNdrop : MonoBehaviour
 {
     private bool isDragging = false;
+    private bool isOverDropZone = false;
+    private GameObject dropZone;
     private Vector2 startPosition;
 
     void Update()
@@ -13,6 +15,18 @@ public class dragNdrop : MonoBehaviour
         {
             transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isOverDropZone = true;
+        dropZone = collision.gameObject;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isOverDropZone = false;
+        dropZone = null;
     }
 
     public void StartDrag()
@@ -24,5 +38,14 @@ public class dragNdrop : MonoBehaviour
     public void EndDrag()
     {
         isDragging = false;
+
+        if (isOverDropZone)
+        {
+            transform.SetParent(dropZone.transform, false);
+        }
+        else
+        {
+            transform.position = startPosition;
+        }
     }
 }

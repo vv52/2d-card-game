@@ -14,3 +14,6 @@ C# is a bit bizarre in comparison to C++, I can't tell if it's the lanugage itse
 
 --
 
+Most of the way through the tutorial at this point, a bit suprised by just how broken this card game engine is only 6 minutes from the end, but I do feel more comfortable in Unity. It has a lot of quirks but nothing too ridiculous. I really need to figure out this canvas size issue because it makes this a lot more difficult than it probably needs to be, but the struggle is where the learning happens so maybe it's a good thing!
+
+--
