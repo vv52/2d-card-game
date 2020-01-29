@@ -23,3 +23,5 @@ Ok, I've finished and about to record a gif with LICEcap. I fixed all errors wit
 The main issues I was experiencing was that my card1s would turn into squares and align together in the drop zone, the solution was realizing I had two instances of the grid layout on and the one with the most pull hierarchally was at default settings. I also could not get my card2s to interact with the drop zone and realized I did not have box colliders or rigidbodys on them so I went ahead and added those and now it functions properly.
 
 I definitely feel confident that I could make a more involved card game now and have been thinking of ways to use the tools I've learned today to create the game I want to work on once we move past the card game section of the course.
+
+![2d card game gif](cs211m1.gif)
