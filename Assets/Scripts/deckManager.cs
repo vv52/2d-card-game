@@ -16,9 +16,13 @@ public class deckManager : MonoBehaviour
 
     int playerScore = 0;
     int playerAceCount = 0;
+    int playerMoney = 100;
 
     int dealerScore = 0;
     int dealerAceCount = 0;
+    int dealerMoney = 100;
+
+    int betValue = 0;
 
     public List<GameObject> playerCards;
     public List<GameObject> dealerCards;
@@ -143,7 +147,7 @@ public class deckManager : MonoBehaviour
 
     public void PlayerBust()
     {
-
+        
     }
 
     public void PlayerBlackjack()
