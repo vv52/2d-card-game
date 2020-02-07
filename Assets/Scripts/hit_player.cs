@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class draw_cards : deckManager
+public class hit_player : deckManager
 {
     public deckManager deck;
 
@@ -13,6 +13,6 @@ public class draw_cards : deckManager
 
     public void OnClick()
     {
-        deck.DealCards();
+        deck.HitPlayer();
     }
 }
