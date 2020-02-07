@@ -8,9 +8,20 @@ public class deckManager : MonoBehaviour
     public GameObject PlayerArea;
     public GameObject OpponentArea;
 
+    public card_info cardInfo;
+
     public bool canDeal = true;
     public bool canHit = true;
     public bool canStay = true;
+
+    int playerScore = 0;
+    int playerAceCount = 0;
+
+    int dealerScore = 0;
+    int dealerAceCount = 0;
+
+    public List<GameObject> playerCards;
+    public List<GameObject> dealerCards;
 
     public List<GameObject> cardsInPlay = new List<GameObject>();
 
@@ -41,16 +52,19 @@ public class deckManager : MonoBehaviour
             
                 GameObject playerCard = Instantiate(cardsInPlay[temp], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                 playerCard.transform.SetParent(PlayerArea.transform, false);
+                playerCards.Add(cardsInPlay[temp]);
                 cardsInPlay.RemoveAt(temp);
 
                 temp = Random.Range(0, cardsInPlay.Count);
 
                 GameObject opponentCard = Instantiate(cardsInPlay[temp], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                 opponentCard.transform.SetParent(OpponentArea.transform, false);
+                dealerCards.Add(cardsInPlay[temp]);
                 cardsInPlay.RemoveAt(temp);
             }
+            CheckCardsValue(playerCards);
         }
-        
+        canDeal = false;
     }
 
     public void HitPlayer()
@@ -61,16 +75,80 @@ public class deckManager : MonoBehaviour
 
             GameObject playerCard = Instantiate(cardsInPlay[temp], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
             playerCard.transform.SetParent(PlayerArea.transform, false);
+            playerCards.Add(cardsInPlay[temp]);
             cardsInPlay.RemoveAt(temp);
         }
+        CheckCardsValue(playerCards);
     }
 
     public void StayPlayer()
     {
         if (canStay)
         {
+            canHit = false;
+            canStay = false;
             DealerTurn();
         }
+    }
+
+    public void CheckCardsValue(List<GameObject> hand)
+    {
+        for (int i = 0; i < hand.Count; i++)
+        {
+            cardInfo = hand[i].GetComponent<card_info>();
+            playerScore += cardInfo.cardValue;
+            if (cardInfo.isAce)
+            {
+                playerAceCount++;
+            }
+        }
+
+        if (playerScore > 21 && playerAceCount == 0)
+        {
+            canHit = false;
+            canStay = false;
+            PlayerBust();
+            DealerTurn();
+        }
+        else if (playerScore > 21)
+        {
+            while (playerScore > 21 && playerAceCount > 0)
+            {
+                playerScore -= 10;
+                playerAceCount--;
+            }
+            if (playerScore == 21)
+            {
+                canHit = false;
+                canStay = false;
+                PlayerBlackjack();
+                DealerTurn();
+            }
+            else if (playerScore > 21)
+            {
+                canHit = false;
+                canStay = false;
+                PlayerBust();
+                DealerTurn();
+            }
+        }
+        else if (playerScore == 21)
+        {
+            canHit = false;
+            canStay = false;
+            PlayerBlackjack();
+            DealerTurn();
+        }
+    }
+
+    public void PlayerBust()
+    {
+
+    }
+
+    public void PlayerBlackjack()
+    {
+
     }
 
     public void DealerTurn()
