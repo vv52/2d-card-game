@@ -73,7 +73,7 @@ public class deckManager : MonoBehaviour
 
     public void HitPlayer()
     {
-        if (canHit)
+        if (canHit == true && canDeal == false)
         {
             int temp = Random.Range(0, cardsInPlay.Count);
 
@@ -97,15 +97,18 @@ public class deckManager : MonoBehaviour
 
     public void CheckCardsValue(List<GameObject> hand)
     {
+        int tempScore = 0;
         for (int i = 0; i < hand.Count; i++)
         {
             cardInfo = hand[i].GetComponent<card_info>();
-            playerScore += cardInfo.cardValue;
+            tempScore += cardInfo.cardValue;
             if (cardInfo.isAce)
             {
                 playerAceCount++;
             }
         }
+
+        playerScore = tempScore;
 
         if (playerScore > 21 && playerAceCount == 0)
         {
@@ -142,6 +145,11 @@ public class deckManager : MonoBehaviour
             canStay = false;
             PlayerBlackjack();
             DealerTurn();
+        }
+        else
+        {
+            canHit = true;
+            canStay = true;
         }
     }
 
