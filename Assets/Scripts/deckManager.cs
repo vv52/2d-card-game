@@ -11,10 +11,10 @@ public class deckManager : MonoBehaviour
 
     public card_info cardInfo;
 
-    public bool canDeal = false;
-    public bool canHit = false;
-    public bool canStay = false;
-    public bool canBet = true;
+    private bool canDeal = false;
+    private bool canHit = false;
+    private bool canStay = false;
+    private bool canBet = true;
 
     int playerScore = 0;
     int playerAceCount = 0;
@@ -51,7 +51,7 @@ public class deckManager : MonoBehaviour
 
     public void DealCards()
     {
-        if (canDeal)
+        if (canDeal == true)
         {
             for (var i = 0; i < 2; i++)
             {
