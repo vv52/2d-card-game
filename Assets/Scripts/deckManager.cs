@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class deckManager : MonoBehaviour
 {
@@ -10,13 +11,15 @@ public class deckManager : MonoBehaviour
 
     public card_info cardInfo;
 
-    public bool canDeal = true;
-    public bool canHit = true;
-    public bool canStay = true;
+    public bool canDeal = false;
+    public bool canHit = false;
+    public bool canStay = false;
+    public bool canBet = true;
 
     int playerScore = 0;
     int playerAceCount = 0;
     int playerMoney = 100;
+    public Text playerMoneyText;
 
     int dealerScore = 0;
     int dealerAceCount = 0;
@@ -79,6 +82,8 @@ public class deckManager : MonoBehaviour
             CheckCardsValue(playerCards);
         }
         canDeal = false;
+        canHit = true;
+        canStay = true;
     }
 
     public void HitPlayer()
@@ -178,5 +183,17 @@ public class deckManager : MonoBehaviour
     public void DealerTurn()
     {
         
+    }
+
+    public void Bet(int bet)
+    {
+        if (canBet)
+        {
+            betValue = bet;
+            playerMoney -= bet;
+            canDeal = true;
+            canBet = false;
+            playerMoneyText.text = "Money: " + playerMoney;
+        }
     }
 }
