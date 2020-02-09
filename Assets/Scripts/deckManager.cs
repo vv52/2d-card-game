@@ -15,6 +15,7 @@ public class deckManager : MonoBehaviour
     private bool canHit = false;
     private bool canStay = false;
     private bool canBet = true;
+    private bool playerBust = false;
 
     int playerScore = 0;
     int playerAceCount = 0;
@@ -25,7 +26,7 @@ public class deckManager : MonoBehaviour
     int dealerAceCount = 0;
     int dealerMoney = 100;
 
-    int betValue = 0;
+    float betValue = 0;
 
     public List<GameObject> playerCards;
     public List<GameObject> dealerCards;
@@ -170,19 +171,34 @@ public class deckManager : MonoBehaviour
         }
     }
 
-    public void PlayerBust()
+    void PlayerBust()
     {
-        
+        betValue = 0;
+        playerBust = true;
+        DealerTurn();
+
+        //TODO: add BUST text
     }
 
-    public void PlayerBlackjack()
+    void PlayerBlackjack()
     {
-
+        //TODO: add BLACKJACK text
+        DealerTurn();
     }
 
-    public void DealerTurn()
+    void DealerTurn()
     {
-        
+        int tempScore = 0;
+        for (int i = 0; i < dealerCards.Count; i++)
+        {
+            cardInfo = dealerCards[i].GetComponent<card_info>();
+            tempScore += cardInfo.cardValue;
+        }
+        dealerScore = tempScore;
+
+        ResolveTurn();   
+
+        //TODO: add a real dealer hit phase here or in another function
     }
 
     public void Bet(int bet)
@@ -195,5 +211,37 @@ public class deckManager : MonoBehaviour
             canBet = false;
             playerMoneyText.text = "Money: " + playerMoney;
         }
+    }
+
+    void ResolveTurn()
+    {
+        if (playerBust)
+        {
+            playerMoney += (int)betValue;
+        }
+        else if (playerScore == dealerScore)
+        {
+            playerMoney += (int)betValue;
+        }
+        else if (playerScore == 21)
+        {
+            double tempNum = betValue * 2.5;
+            playerMoney += (int)tempNum;
+        }
+        else if (playerScore > dealerScore)
+        {
+            double tempNum = betValue * 2;
+            playerMoney += (int)tempNum;
+        }
+        playerMoneyText.text = "Money: " + playerMoney;
+        NextTurn();
+    }
+
+    void NextTurn()
+    {
+        //TODO: reset all bools and nums that need to be reset to run a turn cycle
+                //add a loopable call for a new turn
+                //add a new function that checks for playerMoney reaching 0 or below
+                //add a function that serves as an end state if the above condition is met
     }
 }
