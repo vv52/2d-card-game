@@ -57,6 +57,11 @@ public class deckManager : MonoBehaviour
                 GameObject playerCard = Instantiate(cardsInPlay[temp], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                 playerCard.transform.SetParent(PlayerArea.transform, false);
                 playerCards.Add(cardsInPlay[temp]);
+                cardInfo = cardsInPlay[temp].GetComponent<card_info>();
+                if (cardInfo.isAce)
+                {
+                    playerAceCount++;
+                }
                 cardsInPlay.RemoveAt(temp);
 
                 temp = Random.Range(0, cardsInPlay.Count);
@@ -64,6 +69,11 @@ public class deckManager : MonoBehaviour
                 GameObject opponentCard = Instantiate(cardsInPlay[temp], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                 opponentCard.transform.SetParent(OpponentArea.transform, false);
                 dealerCards.Add(cardsInPlay[temp]);
+                cardInfo = cardsInPlay[temp].GetComponent<card_info>();
+                if (cardInfo.isAce)
+                {
+                    dealerAceCount++;
+                }
                 cardsInPlay.RemoveAt(temp);
             }
             CheckCardsValue(playerCards);
@@ -80,6 +90,11 @@ public class deckManager : MonoBehaviour
             GameObject playerCard = Instantiate(cardsInPlay[temp], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
             playerCard.transform.SetParent(PlayerArea.transform, false);
             playerCards.Add(cardsInPlay[temp]);
+            cardInfo = cardsInPlay[temp].GetComponent<card_info>();
+            if (cardInfo.isAce)
+            {
+                playerAceCount++;
+            }
             cardsInPlay.RemoveAt(temp);
         }
         CheckCardsValue(playerCards);
@@ -87,10 +102,11 @@ public class deckManager : MonoBehaviour
 
     public void StayPlayer()
     {
+        canHit = false;
+        canStay = false;
+
         if (canStay)
         {
-            canHit = false;
-            canStay = false;
             DealerTurn();
         }
     }
@@ -102,10 +118,6 @@ public class deckManager : MonoBehaviour
         {
             cardInfo = hand[i].GetComponent<card_info>();
             tempScore += cardInfo.cardValue;
-            if (cardInfo.isAce)
-            {
-                playerAceCount++;
-            }
         }
 
         playerScore = tempScore;
