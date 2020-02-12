@@ -16,6 +16,7 @@ public class deckManager : MonoBehaviour
     private bool canStay = false;
     private bool canBet = true;
     private bool playerBust = false;
+    private bool dealerBust = false;
     private bool canRefresh = false;
 
     int playerScore = 0;
@@ -198,19 +199,7 @@ public class deckManager : MonoBehaviour
         {
             while (dealerScore < 17)
             {
-                int temp = 0;
-
-                temp = Random.Range(0, cardsInPlay.Count);
-
-                GameObject opponentCard = Instantiate(cardsInPlay[temp], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-                opponentCard.transform.SetParent(OpponentArea.transform, false);
-                dealerCards.Add(cardsInPlay[temp]);
-                cardInfo = cardsInPlay[temp].GetComponent<card_info>();
-                if (cardInfo.isAce)
-                {
-                    dealerAceCount++;
-                }
-                cardsInPlay.RemoveAt(temp);
+                DealerHit();
             }
         }
         if (dealerScore > 21)
@@ -224,8 +213,29 @@ public class deckManager : MonoBehaviour
                 }
             }
         }
-
+        if (dealerScore > 21)
+        {
+            dealerBust = true;
+        }
         ResolveTurn();   
+    }
+
+    void DealerHit()
+    {
+        int temp = 0;
+
+        temp = Random.Range(0, cardsInPlay.Count);
+
+        GameObject opponentCard = Instantiate(cardsInPlay[temp], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        opponentCard.transform.SetParent(OpponentArea.transform, false);
+        dealerCards.Add(cardsInPlay[temp]);
+        cardInfo = cardsInPlay[temp].GetComponent<card_info>();
+        if (cardInfo.isAce)
+        {
+            dealerAceCount++;
+        }
+        dealerScore += cardInfo.cardValue;
+        cardsInPlay.RemoveAt(temp);
     }
 
     public void Bet(int bet)
@@ -245,6 +255,11 @@ public class deckManager : MonoBehaviour
         if (playerBust)
         {
             playerMoney += 0;
+        }
+        else if (dealerBust)
+        {
+            double tempNum = betValue * 2;
+            playerMoney += (int)tempNum;
         }
         else if (playerScore == dealerScore)
         {
@@ -267,6 +282,8 @@ public class deckManager : MonoBehaviour
     void NextTurn()
     {
         canRefresh = true;
+
+        RefreshGameBoard();
         
         //TODO: reset all bools and nums that need to be reset to run a turn cycle
                 //add a loopable call for a new turn
@@ -292,6 +309,7 @@ public class deckManager : MonoBehaviour
             canStay = false;
             canDeal = false;
             canBet = true;
+            dealerBust = false;
             playerBust = false;
             playerScore = 0;
             playerAceCount = 0;
