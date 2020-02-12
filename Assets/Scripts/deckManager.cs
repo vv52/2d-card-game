@@ -22,6 +22,8 @@ public class deckManager : MonoBehaviour
     int playerAceCount = 0;
     int playerMoney = 100;
     public Text playerMoneyText;
+    public Text blackJackText;
+    public Text bustText;
 
     int dealerScore = 0;
     int dealerAceCount = 0;
@@ -132,7 +134,6 @@ public class deckManager : MonoBehaviour
             canHit = false;
             canStay = false;
             PlayerBust();
-            DealerTurn();
         }
         else if (playerScore > 21)
         {
@@ -146,14 +147,12 @@ public class deckManager : MonoBehaviour
                 canHit = false;
                 canStay = false;
                 PlayerBlackjack();
-                DealerTurn();
             }
             else if (playerScore > 21)
             {
                 canHit = false;
                 canStay = false;
                 PlayerBust();
-                DealerTurn();
             }
         }
         else if (playerScore == 21)
@@ -161,7 +160,6 @@ public class deckManager : MonoBehaviour
             canHit = false;
             canStay = false;
             PlayerBlackjack();
-            DealerTurn();
         }
         else
         {
@@ -174,19 +172,20 @@ public class deckManager : MonoBehaviour
     {
         betValue = 0;
         playerBust = true;
-        DealerTurn();
-
-        //TODO: add BUST text
+        bustText.text = "Bust!";
+        Invoke("DealerTurn", 3);
     }
 
     void PlayerBlackjack()
     {
-        //TODO: add BLACKJACK text
-        DealerTurn();
+        blackJackText.text = "BlackJack!";
+        Invoke("DealerTurn", 3);
     }
 
     void DealerTurn()
     {
+        bustText.text = "";
+        blackJackText.text = "";
         int tempScore = 0;
         for (int i = 0; i < dealerCards.Count; i++)
         {
@@ -277,14 +276,9 @@ public class deckManager : MonoBehaviour
 
     void RemoveCards()
     {
-        while (playerCards.Count > 0)
+        for (int index = 0; index < cardsInPlay.Count; index++)
         {
-            Destroy(playerCards[0]);
-        }
-
-        while (dealerCards.Count > 0)
-        {
-            Destroy(dealerCards[0]);
+            cardsInPlay[index].SetActive(false);
         }
     }
 
