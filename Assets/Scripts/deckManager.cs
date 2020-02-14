@@ -255,47 +255,54 @@ public class deckManager : MonoBehaviour
         if (playerBust)
         {
             playerMoney += 0;
+            bustText.text = "Dealer win...";
         }
         else if (dealerBust)
         {
             double tempNum = betValue * 2;
             playerMoney += (int)tempNum;
+            blackJackText.text = "You win!!";
         }
         else if (playerScore == dealerScore)
         {
             playerMoney += (int)betValue;
+            bustText.text = "Draw...";
         }
         else if (playerScore == 21)
         {
             double tempNum = betValue * 2.5;
             playerMoney += (int)tempNum;
+            blackJackText.text = "You win!!";
         }
         else if (playerScore > dealerScore)
         {
             double tempNum = betValue * 2;
             playerMoney += (int)tempNum;
+            blackJackText.text = "You win!!";
+        }
+        else
+        {
+            playerMoney += 0;
+            bustText.text = "Dealer win...";
         }
         playerMoneyText.text = "Money: " + playerMoney;
-        NextTurn();
+        Invoke("NextTurn", 3);
     }
 
     void NextTurn()
     {
         canRefresh = true;
+        bustText.text = "";
+        blackJackText.text = "";
 
         RefreshGameBoard();
-        
-        //TODO: reset all bools and nums that need to be reset to run a turn cycle
-                //add a loopable call for a new turn
-                //add a new function that checks for playerMoney reaching 0 or below
-                //add a function that serves as an end state if the above condition is met
     }
 
     void RemoveCards()
     {
         for (int index = 0; index < cardsInPlay.Count; index++)
         {
-            cardsInPlay[index].SetActive(false);
+            //TODO: move cards offscreen or something
         }
     }
 
