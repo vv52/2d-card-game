@@ -10,6 +10,7 @@ public class deckManager : MonoBehaviour
     public GameObject OpponentArea;
 
     public card_info cardInfo;
+    public Image cardBack;
 
     private bool canDeal = false;
     private bool canHit = false;
@@ -38,6 +39,7 @@ public class deckManager : MonoBehaviour
 
     void Awake()
     {
+        cardBack.enabled = false;
         foreach (var card in Cards)
         {
             cardsInPlay.Add(card);
@@ -83,6 +85,7 @@ public class deckManager : MonoBehaviour
                 }
                 cardsInPlay.RemoveAt(temp);
             }
+            cardBack.enabled = true;
             canDeal = false;
             canHit = true;
             canStay = true;
@@ -171,6 +174,7 @@ public class deckManager : MonoBehaviour
 
     void PlayerBust()
     {
+        cardBack.enabled = false;
         betValue = 0;
         playerBust = true;
         bustText.text = "Bust!";
@@ -179,12 +183,14 @@ public class deckManager : MonoBehaviour
 
     void PlayerBlackjack()
     {
+        cardBack.enabled = false;
         blackJackText.text = "BlackJack!";
         Invoke("DealerTurn", 3);
     }
 
     void DealerTurn()
     {
+        cardBack.enabled = false;
         bustText.text = "";
         blackJackText.text = "";
         int tempScore = 0;
