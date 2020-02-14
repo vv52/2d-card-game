@@ -474,6 +474,7 @@ MonoBehaviour:
   OpponentArea: {fileID: 0}
   cardInfo: {fileID: 0}
   cardBack: {fileID: 0}
+  cardFace: {fileID: 0}
   playerMoneyText: {fileID: 0}
   blackJackText: {fileID: 0}
   bustText: {fileID: 0}
@@ -844,6 +845,7 @@ MonoBehaviour:
   OpponentArea: {fileID: 1384272651}
   cardInfo: {fileID: 0}
   cardBack: {fileID: 1180440677}
+  cardFace: {fileID: 0}
   playerMoneyText: {fileID: 1336367791}
   blackJackText: {fileID: 136397613}
   bustText: {fileID: 544251866}
@@ -1067,6 +1069,7 @@ MonoBehaviour:
   OpponentArea: {fileID: 0}
   cardInfo: {fileID: 0}
   cardBack: {fileID: 0}
+  cardFace: {fileID: 0}
   playerMoneyText: {fileID: 0}
   blackJackText: {fileID: 0}
   bustText: {fileID: 0}
@@ -1483,6 +1486,7 @@ MonoBehaviour:
   OpponentArea: {fileID: 0}
   cardInfo: {fileID: 0}
   cardBack: {fileID: 0}
+  cardFace: {fileID: 0}
   playerMoneyText: {fileID: 0}
   blackJackText: {fileID: 0}
   bustText: {fileID: 0}
@@ -2100,7 +2104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1645665625
 RectTransform:
   m_ObjectHideFlags: 0

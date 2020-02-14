@@ -307,9 +307,16 @@ public class deckManager : MonoBehaviour
 
     void RemoveCards()
     {
-        //TODO: move cards offscreen or something
-        
+        foreach (Transform child in PlayerArea.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         playerCards.Clear();
+
+        foreach (Transform child in OpponentArea.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         dealerCards.Clear();
     }
 
