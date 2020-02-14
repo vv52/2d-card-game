@@ -11,6 +11,7 @@ public class deckManager : MonoBehaviour
 
     public card_info cardInfo;
     public Image cardBack;
+    public Image cardFace;
 
     private bool canDeal = false;
     private bool canHit = false;
