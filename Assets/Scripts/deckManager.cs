@@ -49,7 +49,7 @@ public class deckManager : MonoBehaviour
 
     public void Reshuffle()
     {
-        cardsInPlay.Clear();
+        //cardsInPlay.Clear();
         foreach (var card in Cards)
         {
             cardsInPlay.Add(card);
@@ -60,6 +60,10 @@ public class deckManager : MonoBehaviour
     {
         if (canDeal == true)
         {
+            if (cardsInPlay.Count < 4)
+            {
+                Reshuffle();
+            }
             for (var i = 0; i < 2; i++)
             {
                 int temp = Random.Range(0, cardsInPlay.Count);
@@ -96,6 +100,10 @@ public class deckManager : MonoBehaviour
 
     public void HitPlayer()
     {
+        if (cardsInPlay.Count < 1)
+        {
+            Reshuffle();
+        }
         if (canHit == true && canDeal == false)
         {
             int temp = Random.Range(0, cardsInPlay.Count);
@@ -229,6 +237,10 @@ public class deckManager : MonoBehaviour
 
     void DealerHit()
     {
+        if (cardsInPlay.Count < 1)
+        {
+            Reshuffle();
+        }
         int temp = 0;
 
         temp = Random.Range(0, cardsInPlay.Count);
@@ -293,6 +305,10 @@ public class deckManager : MonoBehaviour
             bustText.text = "Dealer win...";
         }
         playerMoneyText.text = "Money: " + playerMoney;
+        if(playerScore < 0)
+        {
+            YouLose();
+        }
         Invoke("NextTurn", 3);
     }
 
@@ -301,8 +317,18 @@ public class deckManager : MonoBehaviour
         canRefresh = true;
         bustText.text = "";
         blackJackText.text = "";
-
         RefreshGameBoard();
+    }
+
+    void YouLose()
+    {
+        bustText.text = "Out of money! Go home...";
+        Invoke("ExitGame", 5);
+    }
+
+    void ExitGame()
+    {
+        Application.Quit();
     }
 
     void RemoveCards()
