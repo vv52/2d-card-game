@@ -300,10 +300,10 @@ public class deckManager : MonoBehaviour
 
     void RemoveCards()
     {
-        for (int index = 0; index < cardsInPlay.Count; index++)
-        {
-            //TODO: move cards offscreen or something
-        }
+        //TODO: move cards offscreen or something
+        
+        playerCards.Clear();
+        dealerCards.Clear();
     }
 
     public void RefreshGameBoard()
